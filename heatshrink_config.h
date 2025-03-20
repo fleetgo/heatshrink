@@ -1,6 +1,6 @@
 #ifndef HEATSHRINK_CONFIG_H
 #define HEATSHRINK_CONFIG_H
-
+#include "MemoryCppWrapper.hpp"
 /* Should functionality assuming dynamic allocation be used? */
 #ifndef HEATSHRINK_DYNAMIC_ALLOC
 #define HEATSHRINK_DYNAMIC_ALLOC 1
@@ -8,8 +8,8 @@
 
 #if HEATSHRINK_DYNAMIC_ALLOC
     /* Optional replacement of malloc/free */
-    #define HEATSHRINK_MALLOC(SZ) GetMemory(SZ,"HeatShrink")
-    #define HEATSHRINK_FREE(P, SZ) ReleaseMemory(P)
+    #define HEATSHRINK_MALLOC(SZ) MemoryWrapper_Allocate_Blocking(SZ,"heatshrink_config::MemoryWrapper_Allocate_Blocking",false)
+    #define HEATSHRINK_FREE(P, SZ) MemoryWrapper_Free_Source(P,"heatshrink_config::MemoryWrapper_Free_Source")
 #else
     /* Required parameters for static configuration */
     #define HEATSHRINK_STATIC_INPUT_BUFFER_SIZE 32
